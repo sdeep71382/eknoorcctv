@@ -1,0 +1,6 @@
+import Link from "next/link";
+import { contact, solutions } from "@/lib/site-data";
+
+export function Footer() {
+  return <footer className="footer"><div className="shell footer-grid"><div><h2>Contact Info</h2><p>⌖ {contact.address}</p><a href={`mailto:${contact.secondaryEmail}`}>✉ {contact.secondaryEmail}</a><a href={`mailto:${contact.email}`}>✉ {contact.email}</a><a href={`tel:${contact.sales}`}>☎ Sales: {contact.sales}</a><a href={`tel:${contact.phone}`}>☎ Complaint: {contact.phone}</a><a className="whatsapp-pill" href={`https://wa.me/${contact.phone.replace(/\D/g, "")}`} target="_blank" rel="noopener noreferrer">◉ For Complaints, Message Us on WhatsApp</a></div><div><h2>Useful links</h2><Link href="/">Home</Link><Link href="/about-us">About Us</Link><Link href="/contact-us">Contact Us</Link></div><div><h2>Our Solution</h2>{solutions.map((solution) => <Link key={solution.slug} href={`/${solution.slug}`}>{solution.title}</Link>)}</div><div><h2>Our Location</h2><div className="map-placeholder"><span>CHANDIGARH</span><small>Map preview placeholder</small></div></div></div><div className="shell copyright">Copyright ©2026. All rights reserved | Design recreated for demonstration</div></footer>;
+}

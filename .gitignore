@@ -1,0 +1,7 @@
+.next/
+node_modules/
+*.log
+local-*.png
+reference-*.png
+.chrome-*/
+qa-artifacts/
