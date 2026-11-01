@@ -2,12 +2,12 @@ export type LinkItem = { label: string; href: string };
 export type Product = LinkItem & { category: string; icon: string };
 
 export const contact = {
-  phone: "+91 XXXXY XXXXX",
-  sales: "+91 XXXXX XXXXX",
-  email: "hello@example.com",
+  phone: "+91 79730 53590",
+  sales: "+91 96469 10664",
+  email: "eknoor.cctv01@gmail.com",
   secondaryEmail: "hello@example.com",
-  whatsapp: "+91 XXXXX XXXXX",
-  address: "Eknoor CCTV, Chandigarh, India",
+  whatsapp: "+91 79730 53590",
+  address: "Eknoor CCTV, Rajpura, Punjab, India",
   isPlaceholder: true,
 };
 
