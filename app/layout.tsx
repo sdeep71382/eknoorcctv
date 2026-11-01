@@ -1,7 +1,8 @@
 import type { Metadata, Viewport } from "next";
 import "./globals.css";
-import { Header } from "@/components/header";
+import { FloatingContact } from "@/components/floating-contact";
 import { Footer } from "@/components/footer";
+import { Header } from "@/components/header";
 import { siteDescription, siteName, siteUrl } from "@/lib/seo";
 
 export const metadata: Metadata = {
@@ -41,6 +42,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
         <Header />
         <main id="main-content">{children}</main>
         <Footer />
+        <FloatingContact />
       </body>
     </html>
   );

@@ -2,12 +2,25 @@ export type LinkItem = { label: string; href: string };
 export type Product = LinkItem & { category: string; icon: string };
 
 export const contact = {
-  phone: "+91 9646049911",
-  sales: "+91 9646472008",
-  email: "eknoorcctv@gmail.com",
-  secondaryEmail: "eknoorcctv@gmail.com",
+  phone: "+91 XXXXY XXXXX",
+  sales: "+91 XXXXX XXXXX",
+  email: "hello@example.com",
+  secondaryEmail: "hello@example.com",
+  whatsapp: "+91 XXXXX XXXXX",
   address: "Eknoor CCTV, Chandigarh, India",
+  isPlaceholder: true,
 };
+
+export const externalLinks = {
+  facebook: null,
+  googleReviews: null,
+  instagram: null,
+  whatsapp: null,
+  x: null,
+} satisfies Record<
+  "facebook" | "googleReviews" | "instagram" | "whatsapp" | "x",
+  string | null
+>;
 
 export const solutions = [
   { slug: "home-solutions", title: "Home Solutions", icon: "⌂", services: ["CCTV Camera", "Video Door Phone", "Alarm Security System", "Intercom / EPABX", "Projectors", "Smart door locks", "Sliding gate motor", "Wireless / wired networking", "Sensor Lights", "Remote Control Switches"] },
@@ -21,8 +34,8 @@ export const solutions = [
 export const products: Product[] = [
   { label: "MDVR Solutions", href: "/mdvr-solutions", category: "CCTV", icon: "BUS" },
   { label: "Analog & IP Camera", href: "/analog-ip-camera", category: "CCTV", icon: "CAM" },
-  { label: "WI-Fi Camera", href: "/wifi-camera", category: "CCTV", icon: "WIFI" },
-  { label: "4G Sim Based Camera", href: "/4g-camera", category: "CCTV", icon: "4G" },
+  { label: "Wi-Fi Camera", href: "/wifi-camera", category: "CCTV", icon: "WIFI" },
+  { label: "4G SIM-Based Camera", href: "/4g-camera", category: "CCTV", icon: "4G" },
   { label: "PTZ Camera", href: "/ptz-camera", category: "CCTV", icon: "PTZ" },
   { label: "ANPR Camera", href: "/anpr-camera", category: "CCTV", icon: "ANPR" },
   { label: "Door Access Control", href: "/door-access-control", category: "Access Control", icon: "DOOR" },
@@ -37,18 +50,25 @@ export const products: Product[] = [
   { label: "PA System", href: "/pa-system", category: "Communication", icon: "PA" },
   { label: "Fire Sensor System", href: "/fire-sensor-system", category: "Security", icon: "FIRE" },
   { label: "Door Frame Metal Detector", href: "/door-frame-metal-detector", category: "Security", icon: "DFMD" },
-  { label: "Instrusion Alarm System", href: "/instrusion-alarm-system", category: "Security", icon: "ALARM" },
+  { label: "Intrusion Alarm System", href: "/instrusion-alarm-system", category: "Security", icon: "ALARM" },
   { label: "Automatic Gate Motor", href: "/automatic-gate-motor", category: "Automation", icon: "GATE" },
   { label: "Boom Barrier", href: "/boom-barrier", category: "Automation", icon: "BOOM" },
   { label: "Gate Barrier", href: "/gate-barrier", category: "Automation", icon: "ENTRY" },
   { label: "Smart Light Sensor System", href: "/smart-light-sensor-system", category: "Automation", icon: "LIGHT" },
-  { label: "Road Safety Products", href: "/road-safety-products", category: "Road Safety Products", icon: "SAFE" },
-  { label: "Projector & LED TV", href: "/projector-led-tv", category: "Screens", icon: "LED" },
+  { label: "Speed Breaker", href: "/speed-breaker", category: "Road Safety Products", icon: "SAFE" },
+  { label: "Spring Plastic Post", href: "/spring-plastic-post", category: "Road Safety Products", icon: "POST" },
+  { label: "Plastic Cone", href: "/plastic-cone", category: "Road Safety Products", icon: "CONE" },
+  { label: "Caution Stand", href: "/caution-stand", category: "Road Safety Products", icon: "CAUT" },
+  { label: "Road Stud", href: "/road-stud", category: "Road Safety Products", icon: "STUD" },
+  { label: "Safety Cross Belt", href: "/safety-cross-belt", category: "Road Safety Products", icon: "BELT" },
+  { label: "Safety Helmet", href: "/safety-helmet", category: "Road Safety Products", icon: "HELM" },
+  { label: "Projector", href: "/projector", category: "Screens", icon: "PROJ" },
+  { label: "LED TV", href: "/led-tv", category: "Screens", icon: "LED" },
   { label: "Signage TV", href: "/signage-tv", category: "Screens", icon: "SIGN" },
   { label: "Interactive Panel", href: "/interactive-panel", category: "Screens", icon: "PANEL" },
 ];
 
-export const productCategories = ["CCTV", "Access Control", "Networking", "Communication", "Security", "Automation", "Road Safety Products", "Screens", "GPS"];
+export const productCategories = ["CCTV", "Access Control", "Networking", "Communication", "Security", "Automation", "Road Safety Products", "Screens"];
 
 export const heroSlides = [
   { eyebrow: "Welcome To Eknoor CCTV", line1: "ADVANCED", accent: "CCTV & SECURITY SOLUTIONS", line2: "FOR EVERY SPACE", scene: "monitoring" },
@@ -77,7 +97,7 @@ export const clientGroups: Record<string, string[]> = {
 };
 
 export const aboutParagraphs = [
-  "Eknoor CCTV has been providing CCTV installation, access control, networking, automation and security solutions since 2013. We design, build and maintain stand-alone and integrated security systems.",
+  "Eknoor CCTV provides CCTV installation, access control, networking, automation and security solutions. We design, build and maintain stand-alone and integrated security systems.",
   "We provide full turnkey solutions - taking customer requirements, designing the concept, selecting the right products, and completing the installation with professional service.",
   "From development and design through installation and ongoing maintenance, we are a true partner, creating reliable security solutions that meet our customers' needs.",
 ];

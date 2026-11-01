@@ -4,12 +4,14 @@ import { allPublicSlugs } from "../lib/site-data";
 const publicRoutes = ["/", ...allPublicSlugs.map((slug) => `/${slug}`)];
 
 test("every implemented route responds with an accessible document", async ({ page }) => {
+  test.setTimeout(90_000);
+
   for (const route of publicRoutes) {
     const response = await page.goto(route, { waitUntil: "domcontentloaded" });
     expect(response?.status(), route).toBe(200);
     await expect(page.locator("main")).toBeVisible();
     await expect(page.locator("h1")).toHaveCount(1);
-    expect(await page.title(), route).toContain("Sky Secure");
+    expect(await page.title(), route).toContain("Eknoor CCTV");
     expect(await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1), route).toBeTruthy();
   }
 });
@@ -29,18 +31,64 @@ test("desktop dropdowns and mobile navigation are keyboard and click accessible"
   await page.setViewportSize({ width: 1280, height: 900 });
   await page.goto("/");
   const mainNav = page.getByRole("navigation", { name: "Main navigation" });
-  const solutionButton = mainNav.getByRole("button", { name: /Our Solutions/ });
+  const solutionButton = mainNav.getByRole("button", { name: "Solutions" });
   await solutionButton.click();
   await expect(solutionButton).toHaveAttribute("aria-expanded", "true");
   await expect(mainNav.getByRole("link", { name: "Home Solutions" })).toBeVisible();
   await page.keyboard.press("Escape");
   await expect(solutionButton).toHaveAttribute("aria-expanded", "false");
+  await expect(solutionButton).toBeFocused();
+
+  const productButton = mainNav.getByRole("button", { name: "Products" });
+  await productButton.hover();
+  const analogCameraLink = mainNav.getByRole("link", { name: "Analog & IP Camera" });
+  const productButtonBox = await productButton.boundingBox();
+  const analogCameraBox = await analogCameraLink.boundingBox();
+  expect(productButtonBox).not.toBeNull();
+  expect(analogCameraBox).not.toBeNull();
+  await page.mouse.move(productButtonBox!.x + productButtonBox!.width / 2, productButtonBox!.y + productButtonBox!.height / 2);
+  await page.mouse.move(analogCameraBox!.x + analogCameraBox!.width / 2, analogCameraBox!.y + analogCameraBox!.height / 2, { steps: 24 });
+  await expect(analogCameraLink).toBeVisible();
+  await page.mouse.move(10, 500);
+
+  await productButton.focus();
+  await page.keyboard.press("ArrowDown");
+  await expect(productButton).toHaveAttribute("aria-expanded", "true");
+  await page.keyboard.press("Tab");
+  await expect(mainNav.getByRole("link", { name: "MDVR Solutions" })).toBeFocused();
+  await page.keyboard.press("Escape");
+  await expect(productButton).toBeFocused();
 
   await page.setViewportSize({ width: 375, height: 812 });
-  const menuButton = page.getByRole("button", { name: "Toggle navigation" });
+  const menuButton = page.getByRole("button", { name: "Open navigation" });
   await menuButton.click();
   await expect(page.locator("#primary-navigation")).toHaveClass(/is-open/);
-  await expect(page.getByRole("link", { name: "Contact Us" }).first()).toBeVisible();
-  await menuButton.click();
+  await expect(page.getByRole("link", { name: "Contact", exact: true }).first()).toBeVisible();
+  await page.keyboard.press("Escape");
+  await expect(page.getByRole("button", { name: "Open navigation" })).toBeFocused();
   await expect(page.locator("#primary-navigation")).not.toHaveClass(/is-open/);
+});
+
+test("global shell compacts on scroll and placeholders remain non-interactive", async ({ page }) => {
+  await page.goto("/");
+  const navbar = page.locator(".aceternity-resizable-navbar");
+  await expect(navbar).not.toHaveAttribute("data-compact", "true");
+  await page.evaluate(() => window.scrollTo(0, 400));
+  await expect(navbar).toHaveAttribute("data-compact", "true");
+
+  await expect(page.locator('a[href^="tel:"]')).toHaveCount(0);
+  await expect(page.locator('a[href^="mailto:"]')).toHaveCount(0);
+  await expect(page.locator('a[href*="wa.me"]')).toHaveCount(0);
+  await expect(page.locator("[data-placeholder-contact]").first()).toBeVisible();
+});
+
+test("global shell has no horizontal overflow at boundary widths", async ({ page }) => {
+  for (const width of [320, 768, 1440, 1920]) {
+    await page.setViewportSize({ width, height: 900 });
+    await page.goto("/");
+    expect(
+      await page.evaluate(() => document.documentElement.scrollWidth <= window.innerWidth + 1),
+      `viewport ${width}px`,
+    ).toBeTruthy();
+  }
 });

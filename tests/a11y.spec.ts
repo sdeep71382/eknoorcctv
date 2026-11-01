@@ -16,7 +16,7 @@ test("mobile keyboard flow reaches the skip link and menu control", async ({ pag
   await page.keyboard.press("Tab");
   await expect(page.locator(".skip-link")).toBeFocused();
   await page.keyboard.press("Tab");
-  await expect(page.getByRole("link", { name: /Sky Secure recreation home/ })).toBeFocused();
+  await expect(page.getByRole("link", { name: /Eknoor CCTV home/ })).toBeFocused();
   await page.keyboard.press("Tab");
-  await expect(page.getByRole("button", { name: "Toggle navigation" })).toBeFocused();
+  await expect(page.getByRole("button", { name: "Open navigation" })).toBeFocused();
 });

@@ -7,11 +7,14 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint .",
+    "images:generate": "node scripts/generate-category-images.mjs",
     "typecheck": "tsc --noEmit",
     "test:e2e": "playwright test",
     "test:a11y": "playwright test tests/a11y.spec.ts"
   },
   "dependencies": {
+    "lucide-react": "^1.61.0",
+    "motion": "^14.6.0",
     "next": "^16.0.0",
     "react": "^19.2.0",
     "react-dom": "^19.2.0"
